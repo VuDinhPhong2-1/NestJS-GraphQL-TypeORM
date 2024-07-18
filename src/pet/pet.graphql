@@ -1,0 +1,23 @@
+type PetResponse {
+  id: ID!
+  age: Int
+  name: String
+  userId: ID!
+  user: User!
+}
+
+input CreatePetInput {
+  name: String
+  age: Int
+  userId: ID!
+}
+
+input UpdatePetInput {
+  id: ID!
+  name: String
+  age: Int
+}
+
+type Mutation {
+  createPet(input: CreatePetInput): PetResponse
+}

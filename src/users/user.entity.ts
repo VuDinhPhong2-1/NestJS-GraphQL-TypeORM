@@ -1,7 +1,8 @@
 import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
 import { AbstractEntity } from 'src/common/classes/abstract-entity';
 import { Role } from 'src/graphql';
-import { Entity, Column, Unique } from 'typeorm';
+import { Pet } from 'src/pet/pet.entity';
+import { Entity, Column, Unique, OneToMany } from 'typeorm';
 
 @Entity()
 @Unique(['email'])
@@ -41,4 +42,7 @@ export class User extends AbstractEntity {
   })
   @Column({ type: 'timestamp', nullable: true })
   deletedAt?: string;
+
+  @OneToMany(() => Pet, pet => pet.user)
+  pets: Pet[];
 }
