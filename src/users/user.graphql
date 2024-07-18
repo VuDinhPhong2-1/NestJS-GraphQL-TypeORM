@@ -1,0 +1,36 @@
+enum Role {
+  USER
+  ADMIN
+}
+
+type UserResponse {
+  id: ID!
+  age: Int
+  name: String
+  email: String
+  role: Role!
+}
+
+input CreateUserInput {
+  name: String
+  age: Int
+  email: String
+  password: String
+}
+
+input UpdateUserInput {
+  id: ID!
+  name: String
+  age: Int
+  email: String
+  password: String
+}
+
+type Query {
+  hello: String
+}
+type Mutation {
+  createUser(input: CreateUserInput): UserResponse
+  deleteUser(userId: String): UserResponse
+  destroyUser(userId: String): UserResponse
+}
