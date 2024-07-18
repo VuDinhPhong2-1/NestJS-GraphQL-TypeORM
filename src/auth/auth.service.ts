@@ -4,7 +4,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { access } from 'fs';
-import { LoginUserInput, UserResponse } from 'src/graphql';
+import { LoginUserInput, User as Users } from 'src/graphql';
 import { User } from 'src/users/user.entity';
 import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
@@ -20,10 +20,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async validateUser(
-    username: string,
-    password: string,
-  ): Promise<UserResponse> {
+  async validateUser(username: string, password: string): Promise<Users> {
     const user = await this.usersService.findOne(username);
     const isValidPassword = await this.usersService.isValidPassword(
       password,
@@ -44,7 +41,7 @@ export class AuthService {
     });
     return refresh_token;
   };
-  async login(user: UserResponse) {
+  async login(user: Users) {
     const { id, name, email, role } = user;
     const payload = {
       sub: 'token login',

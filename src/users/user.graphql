@@ -3,12 +3,13 @@ enum Role {
   ADMIN
 }
 
-type UserResponse {
+type User {
   id: ID!
   age: Int
   name: String
   email: String
   role: Role!
+  pets: [PetResponse]
 }
 
 input CreateUserInput {
@@ -27,10 +28,12 @@ input UpdateUserInput {
 }
 
 type Query {
-  hello: String
+  listUser: [User]
 }
+
 type Mutation {
-  createUser(input: CreateUserInput): UserResponse
-  deleteUser(userId: String): UserResponse
-  destroyUser(userId: String): UserResponse
+  createUser(input: CreateUserInput): User
+  updateUser(input: UpdateUserInput): User
+  deleteUser(userId: String): User
+  destroyUser(userId: String): User
 }

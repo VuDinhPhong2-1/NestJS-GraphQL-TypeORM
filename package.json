@@ -23,7 +23,6 @@
     "migration:run": "npm run typeorm -- migration:run",
     "migration:revert": "npm run typeorm -- migration:revert",
     "typeorm": "npm run build && npx typeorm -d dist/db/data-source.js"
-
   },
   "dependencies": {
     "@nestjs/apollo": "^12.2.0",
@@ -36,11 +35,14 @@
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/typeorm": "^10.0.2",
     "@types/bcryptjs": "^2.4.6",
+    "@types/graphql-upload": "^16.0.7",
     "@types/passport-jwt": "^4.0.1",
     "apollo-server-express": "^3.13.0",
     "bcryptjs": "^2.4.3",
+    "dataloader": "^2.2.2",
     "graphql": "^16.9.0",
     "graphql-tools": "^9.0.1",
+    "graphql-upload": "^13.0.0",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",

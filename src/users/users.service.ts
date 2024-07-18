@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
 import { In, Repository } from 'typeorm';
-import { CreateUserInput, UpdateUserInput, UserResponse } from 'src/graphql';
+import { CreateUserInput, UpdateUserInput, User as Users } from 'src/graphql';
 import { compareSync, genSaltSync, hashSync } from 'bcryptjs';
 
 @Injectable()
@@ -48,19 +48,19 @@ export class UsersService {
     }
   }
 
-  // async updateUser(updateUserInput: UpdateUserInput) {
-  //   try {
-  //     const user = await this.usersRepository.findOne({
-  //       where: { id: updateUserInput.id },
-  //     });
-  //     if (!user) throw new Error("user doesn't exits.");
-  //     Object.assign(user, updateUserInput);
-  //     const updatedUser = await this.usersRepository.save(user);
-  //     return updatedUser;
-  //   } catch (error) {
-  //     throw new Error(`Failed to update user: ${error.message}`);
-  //   }
-  // }
+  async updateUser(updateUserInput: UpdateUserInput) {
+    try {
+      const user = await this.usersRepository.findOne({
+        where: { id: updateUserInput.id },
+      });
+      if (!user) throw new Error("user doesn't exits.");
+      Object.assign(user, updateUserInput);
+      const updatedUser = await this.usersRepository.save(user);
+      return updatedUser;
+    } catch (error) {
+      throw new Error(`Failed to update user: ${error.message}`);
+    }
+  }
 
   async deleteUser(userId: string) {
     try {
@@ -110,7 +110,7 @@ export class UsersService {
     });
   }
 
-  async listUser(): Promise<User[]> {
+  async listUser(): Promise<Users[]> {
     const users = await this.usersRepository.find();
     return users;
   }
