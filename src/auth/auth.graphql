@@ -10,9 +10,11 @@ input LoginUserInput {
 
 type Query {
   hello: String
+  getUserFromToken(access_token: String!): User!
 }
 
 type Mutation {
   login(loginUserInput: LoginUserInput!): LoginResponse
   refresherToken(refresh_token: String!): LoginResponse
+  logout(userId: String!): Boolean
 }

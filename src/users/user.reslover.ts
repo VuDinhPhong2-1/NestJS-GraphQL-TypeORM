@@ -19,7 +19,7 @@ import { IDataloaders } from 'src/common/dataloader/dataloader.interface';
 export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
-  @UseGuards(JwtAuthGuard, AdminGuard)
+  // @UseGuards(JwtAuthGuard, AdminGuard)
   @Mutation(() => Users)
   async createUser(@Args('input') createUserInput: CreateUserInput) {
     return this.usersService.createUser(createUserInput);
@@ -51,7 +51,6 @@ export class UsersResolver {
     @Context() { loaders }: { loaders: IDataloaders },
   ) {
     try {
-      console.log('userResponse', userResponse);
       const pets = await loaders.petsLoader.load(userResponse.id);
       return pets;
     } catch (error) {
