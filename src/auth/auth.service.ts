@@ -42,12 +42,13 @@ export class AuthService {
     return refresh_token;
   };
   async login(user: Users) {
-    const { id, name, email, role } = user;
+    const { id, name, age, email, role } = user;
     const payload = {
       sub: 'token login',
       iss: 'from server',
       id,
       name,
+      age,
       email,
       role,
     };
@@ -85,6 +86,23 @@ export class AuthService {
       }
     } catch (error) {
       throw new BadRequestException('Invalid token! Please log in again.');
+    }
+  }
+  deleteCookieAndToken = async (userId: string) => {
+    try {
+      await this.usersService.updateUserRefreshToken(null, userId);
+      return true;
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
+  };
+
+  async decodeToken(token: string): Promise<User> {
+    try {
+      const decoded = this.jwtService.decode(token);
+      return decoded;
+    } catch (error) {
+      throw new Error('Invalid token');
     }
   }
 }
